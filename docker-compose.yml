@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres_db:
+    image: postgres:16-alpine
+    container_name: nuxt_postgres
+    # Ограничение ресурсов системы
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'        # Использовать максимум 1 ядро процессора
+          memory: 512M       # Максимум 512 Мегабайт оперативной памяти
+        reservations:
+          memory: 256M       # Гарантированно выделить 256 Мегабайт при старте
+    environment:
+      POSTGRES_USER: ${DB_USER:-myuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-mypassword}
+      POSTGRES_DB: ${DB_NAME:-mydatabase}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: nuxt_pgadmin
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'        # pgAdmin не нужен целый процессор, хватит половины ядра
+          memory: 256M       # 256 МБ для веб-интерфейса более чем достаточно
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@admin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+    ports:
+      - "${PGADMIN_PORT:-8080}:80"
+    depends_on:
+      - postgres_db
+
+volumes:
+  pgdata:

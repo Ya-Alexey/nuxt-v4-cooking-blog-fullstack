@@ -1,0 +1,164 @@
+@use "sass:math";
+@use "sass:list"; 
+@use "sass:map";
+
+$font-weight-regular: 400;
+$font-weight-semibold: 600;
+
+$breakpoints: (
+  "min480":  "only screen and (min-width: 480px)",
+  "min640": "only screen and (min-width: 640px)",
+  "min800": "only screen and (min-width: 800px)",
+  "min1000": "only screen and (min-width: 1000px)",
+  "min1200": "only screen and (min-width: 1200px)",
+);
+
+/// Установка однотипных по длительнести и тайменгу анимаций 
+/// @example scss
+/// .button {
+///   @include transition-default(background-color, color, transform);
+/// }
+///
+@mixin transition-default($properties...) {
+  $transitions: ();
+  @each $prop in $properties {
+    // Накапливаем строку: свойство + переменные длительности и тайминга
+    $transitions: list.append($transitions, $prop var(--base-duration) var(--base-timing), comma);
+  }
+  transition: $transitions;
+}
+
+/// прозрачность от увета
+/// @example scss
+/// .button {
+///   @include apply-tint(background-color, var(--dark-color), 50%);
+/// }
+@mixin apply-tint($property, $color-var, $opacity-percent: 0%) {
+  #{$property}: #{color-mix(in srgb, $color-var, transparent $opacity-percent)};
+}
+
+/// Для медиа выражений
+/// @example scss
+/// .box {
+///   width: 100%;
+///   @include media("min1000") {
+///      width: 50%;
+///   }
+/// }
+@mixin media($name) {
+  @media #{map.get($breakpoints, $name)} {
+    @content;
+  }
+}
+
+@mixin mediaHover() {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
+@function rem($pixels) {
+  @return calc(#{$pixels} * var(--px-to-rem));
+}
+
+/// Универсальный миксин для построения адаптивной типографики.
+/// Автоматически переводит px в динамические rem через CSS-переменные
+/// и вычисляет коэффициент line-height, если переданы пиксели.
+///
+/// @group Typography
+///
+/// @param {Number} $size - Размер шрифта в пикселях (без указания единиц, например: 16)
+/// @param {Number} $lineHeight - Высота строки. Может быть коэффициентом (1.4) или в px (24)
+/// @param {Number} $weight [400] - (font-weight)
+///
+/// @example scss - Использование с коэффициентом line-height
+///   .fnt-def-1 {
+///     @include font-base(16, 1.4);
+///   }
+///
+/// @example scss - Использование с пикселями из макета (авторасчет коэффициента)
+///   .title-2 {
+///     @include font-base(48, 56, 600);
+///   }
+@mixin font-base($size, $lineHeight, $weight: $font-weight-regular) {
+  font-size: rem($size);
+  font-weight: $weight;
+
+  // Если передано чистое число без единиц измерения и оно больше 3, 
+  // передали пиксели (например, 24). Переводим в коэффициент.
+  @if math.is-unitless($lineHeight) and $lineHeight > 3 {
+    $raw-ratio: math.div($lineHeight, $size);
+    $rounded-ratio: math.div(math.round($raw-ratio * 100), 100);
+    line-height: $rounded-ratio;
+  } @else {
+    // Если передан готовый коэффициент (1.4) 
+    line-height: $lineHeight;
+  }
+}
+
+@mixin reset-btn() {
+  padding: 0;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+@mixin fnt-h1() {
+  font-family: var(--second-family);
+  font-weight: 800;
+  line-height: 1;
+  font-size: 38px;
+  @include media("min800") {
+    font-size: 80px;
+  }
+}
+@mixin fnt-h2() {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  @include media("min1000") {
+    font-size: 40px;
+  }
+}
+@mixin fnt-h3() {
+  font-family: var(--second-family);
+  font-weight: 700;
+  font-size: 21px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  @include media("min1000") {
+    font-size: 24px;
+  }
+}
+@mixin fnt-h4() {
+  font-family: var(--second-family);
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  @include media("min1000") {
+    font-size: 18px;
+  }
+}
+@mixin fnt-p-1 {
+  font-size: 16px;
+  line-height: 1.4;
+  @include media("min800") {
+    font-size: 21px;
+  }
+}
+@mixin fnt-p-2 {
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  @include media("min800") {
+    font-size: 16px;
+  }
+}

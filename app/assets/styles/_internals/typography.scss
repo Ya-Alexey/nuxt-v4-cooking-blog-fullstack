@@ -1,0 +1,20 @@
+@use '../function' as *;
+
+.fnt-p-1 {
+  @include fnt-p-1();
+}
+.fnt-p-2 {
+  @include fnt-p-2();
+}
+.fnt-h1 {
+  @include fnt-h1();
+}
+.fnt-h2 {
+  @include fnt-h2();
+}
+.fnt-h3 {
+  @include fnt-h3();
+}
+.fnt-h4 {
+  @include fnt-h4();
+}

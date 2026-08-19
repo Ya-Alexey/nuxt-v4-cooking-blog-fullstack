@@ -1,0 +1,36 @@
+@use '../function' as *;
+
+:root {
+	--base-duration: 0.3s;
+  --base-timing: ease-in-out;
+
+  --browser-context: 16;
+  --px-to-rem: calc((1 / var(--browser-context)) * 1rem);
+  
+  --font-family: "Roboto", sans-serif;
+  --second-family: "Montserrat", sans-serif;
+
+	--dark-color: #262522;
+	--dark-color-alpha-76: #262522c2;
+	--dark-color-alpha-40: #26252266;
+	--dark-color-alpha-24: #2625223d;
+	--background-app: #f0ebe1;
+	--primary-color-1: #9fdc26;
+	--primary-color-2: #f29c33;
+	--primary-color-3: #ee6352;
+	--primary-color-4: #c4e5fc;
+
+	--light-color: #fffbf2;
+	--light-color-alpha-16: #fffbf229;
+
+  --z-base-popup: 15;
+  --z-layout-sticky: 5;
+
+	--section-border-radius: 24px;
+	--section-row-gap: 32px;
+
+	@include media("min800") {
+		--section-border-radius: 32px;
+		--section-row-gap: 64px;
+	}
+}
