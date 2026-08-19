@@ -71,6 +71,14 @@ export default defineNuxtConfig({
   runtimeConfig: {
     'public': {}
   },
+  nitro: {
+    imports: {
+      dirs: [
+        './server/db', 
+        './server/schemas',
+      ]
+    }
+  },
   modules: [
     '@vueuse/nuxt',
     'nuxt-svg-sprite-icon',

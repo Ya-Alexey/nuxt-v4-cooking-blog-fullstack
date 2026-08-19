@@ -23,17 +23,21 @@
 </template>
 
 <script lang="ts" setup>
-const { data: users } = await useFetch('/api/users');
+// const { data: users } = await useFetch('/api/users');
 
-watchEffect(() => {
-  console.log('users', users.value);
-});
+// watchEffect(() => {
+//   console.log('users', users.value);
+// });
 
 const { data: featuredRecipes } = await useFeaturedRecipes();
 const LazyHydrationSectionSwiper = defineLazyHydrationComponent(
   'visible',
   () => import('~/components/SectionSwiper.vue'),
 );
+
+// watchEffect(() => {
+//   console.log('featuredRecipes', featuredRecipes.value);
+// });
 </script>
 
 <style lang="scss" scoped>

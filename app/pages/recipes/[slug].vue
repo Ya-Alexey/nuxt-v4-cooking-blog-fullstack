@@ -66,6 +66,8 @@ const { data: relatedRecipes } = await useAsyncData<RecipeCard[]>(
 useProvideRecipeItemContext(recipeData);
 
 watchEffect(() => {
+  console.log('recipeData', recipeData.value);
+  
   if (recipeData.value === null) {
     throw createError({
       statusCode: 404,
