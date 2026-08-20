@@ -76,6 +76,7 @@ export default defineNuxtConfig({
       dirs: [
         './server/db', 
         './server/schemas',
+        './server/utils',
       ]
     }
   },

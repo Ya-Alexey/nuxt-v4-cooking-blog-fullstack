@@ -23,21 +23,17 @@
 </template>
 
 <script lang="ts" setup>
-// const { data: users } = await useFetch('/api/users');
-
-// watchEffect(() => {
-//   console.log('users', users.value);
-// });
+const { $api } = useNuxtApp();
+const { data, error } = await useAsyncData(
+  'recipes',
+  $api.recipes.get
+);
 
 const { data: featuredRecipes } = await useFeaturedRecipes();
 const LazyHydrationSectionSwiper = defineLazyHydrationComponent(
   'visible',
   () => import('~/components/SectionSwiper.vue'),
 );
-
-// watchEffect(() => {
-//   console.log('featuredRecipes', featuredRecipes.value);
-// });
 </script>
 
 <style lang="scss" scoped>

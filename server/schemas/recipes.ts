@@ -41,6 +41,7 @@ export const recipeCardSchema = createSelectSchema(recipes).pick({
 type InferZodOutput<T> = T extends { _output: infer O } ? O : never;
 
 export type Recipe = typeof recipes.$inferSelect
+export type RecipePayload = typeof recipes.$inferInsert
 export type RecipeCard = InferZodOutput<typeof recipeCardSchema>
 
 const baseInsertSchema = createInsertSchema(recipes)
