@@ -20,6 +20,7 @@ export default defineEventHandler(async (evt) => {
         servesCount: recipes.servesCount,
         vegan: recipes.vegan,
         category: recipes.category,
+        slug: recipes.slug,
       })
       .from(recipes)
     return sendResponseSuccess(evt, recipeCards)

@@ -9,7 +9,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test": "vitest"
+    "test": "vitest",
+    "db:seed": "tsx server/db/seed.ts"
   },
   "dependencies": {
     "@nuxt/content": "3.15.2",
@@ -30,6 +31,7 @@
     "vue-router": "5.1.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^10.6.0",
     "@nuxt/test-utils": "^4.1.0",
     "@types/node": "^26.2.0",
     "@types/pg": "^8.23.1",
@@ -38,6 +40,7 @@
     "happy-dom": "^20.11.6",
     "nuxt-svg-sprite-icon": "2.0.5",
     "sass": "1.101.0",
+    "transliteration": "^2.6.1",
     "vitest": "^4.1.11"
   }
 }
