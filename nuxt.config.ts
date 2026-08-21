@@ -73,11 +73,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     imports: {
-      dirs: [
-        './server/db', 
-        './server/schemas',
-        './server/utils',
-      ]
+      autoImport: false,
     }
   },
   modules: [
