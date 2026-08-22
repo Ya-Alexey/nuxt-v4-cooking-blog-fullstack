@@ -10,7 +10,7 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "test": "vitest",
-    "db:seed": "tsx server/db/seed.ts"
+    "db:seed": "tsx helpers/db-seed.ts && tsx server/db/seed.ts"
   },
   "dependencies": {
     "@nuxt/content": "3.15.2",
