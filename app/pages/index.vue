@@ -23,17 +23,13 @@
 </template>
 
 <script lang="ts" setup>
-const { $api } = useNuxtApp();
-const { data, error } = await useAsyncData(
-  'recipes',
-  $api.recipes.get
-);
-
-const { data: featuredRecipes } = await useFeaturedRecipes();
 const LazyHydrationSectionSwiper = defineLazyHydrationComponent(
   'visible',
   () => import('~/components/SectionSwiper.vue'),
 );
+
+const { data } = await useFeaturedRecipesApi();
+const { data: featuredRecipes } = await useFeaturedRecipes();
 </script>
 
 <style lang="scss" scoped>

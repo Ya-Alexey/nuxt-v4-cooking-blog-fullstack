@@ -17,10 +17,15 @@ export function createApiRecipes(apiFetch: typeof $fetch) {
   const getBySlug = (slug: string) => {
     return apiFetch(`${BASE_URL}/${slug}`)
   }
+
+  const getFeatured = () => {
+     return apiFetch(`${BASE_URL}/featured`)
+  }
   
   return {
     create,
     get,
     getBySlug,
+    getFeatured,
   } as const;
 }
