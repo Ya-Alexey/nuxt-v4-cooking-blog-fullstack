@@ -84,6 +84,9 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     '@nuxt/content',
   ],
+  swiper: {
+    'bundled': false,
+  },
   content: {
     experimental: { 
       sqliteConnector: 'native',

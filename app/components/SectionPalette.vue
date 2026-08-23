@@ -1,6 +1,9 @@
 <template>
   <section class="section-palette">
-    <BaseTag class="section-palette__tag">{{ tagRegistry.explore }}</BaseTag>
+    <LazyBaseTag 
+      class="section-palette__tag"
+      hydrate-never
+    >{{ tagRegistry.explore }}</LazyBaseTag>
     <h2 class="section-palette__title fnt-h2">Рецепты на&nbsp;любой вкус</h2>
     <p class="section-palette__descr fnt-p-2">
       Ищете вдохновение для идеального завтрака, сытного обеда или потрясающего десерта? В&nbsp;нашей авторской коллекции собраны проверенные рецепты на&nbsp;каждый день и&nbsp;для особых случаев.
@@ -35,7 +38,6 @@
 <script lang="ts" setup> 
 import type { RecipeCategory } from '~/types/common'
 type RecipeCategoryPalette = Exclude<RecipeCategory, 'vegan'>
-
 
 interface PaletteNav {
   key: RecipeCategoryPalette

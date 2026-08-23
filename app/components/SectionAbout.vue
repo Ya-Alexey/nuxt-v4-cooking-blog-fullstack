@@ -1,13 +1,17 @@
 <template>
   <section class="section-about">
     <div class="section-about__main">
-      <BaseTag class="section-about__tag">{{ tagRegistry.about }}</BaseTag>
+      <BaseTag 
+        class="section-about__tag"
+      >{{ tagRegistry.about }}</BaseTag>
       <h2 class="section-about__title fnt-h2">Наша кулинарная летопись</h2>
       <p class="section-about__descr fnt-p-2">
         Наш путь соткан из преданности делу, творчества и искреннего желания дарить вам незабываемые вкусовые впечатления. Присоединяйтесь к нам, чтобы прочувствовать суть каждого блюда и узнать истории, которые за ними стоят.
       </p>
       <BaseBtn 
         theme="default-outline"
+        tag="NuxtLink"
+        to="/about-us"
       >Подробнее</BaseBtn>
     </div>
 
@@ -31,10 +35,6 @@
     >
   </section>
 </template>
-
-<script lang="ts" setup>
-
-</script>
 
 <style lang="scss" scoped>
 .section-about {

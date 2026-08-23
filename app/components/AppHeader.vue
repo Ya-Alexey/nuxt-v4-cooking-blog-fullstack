@@ -42,7 +42,10 @@
             @click="scrollToSubscribe"
           >Подписаться</BaseBtn>
 
-          <MenuSocials class="app-header__socials"/>
+          <LazyMenuSocials 
+            hydrate-never
+            class="app-header__socials"
+          />
         </div>
       </div>
     </div>

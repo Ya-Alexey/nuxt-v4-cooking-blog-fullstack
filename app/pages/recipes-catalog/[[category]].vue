@@ -29,7 +29,7 @@
       >{{ nav.label }}</BaseBtn>
     </div>
 
-    <div 
+    <!-- <div 
       v-if="catalogData?.length"
       class="recipes-catalog__grid"
     >
@@ -38,7 +38,7 @@
         :key="recipe.id"
         :card-data="recipe"
       />
-    </div>
+    </div> -->
 
     <div 
       v-if="totalPages > 1"
@@ -87,12 +87,12 @@ const {
   total: totalCount,
 });
 
-const { data: catalogData } = await useCatalogData({
-  limit: LIMIT,
-  skip,
-  category: currentCategory,
-  page: currentPage,
-});
+// const { data: catalogData } = await useCatalogData({
+//   limit: LIMIT,
+//   skip,
+//   category: currentCategory,
+//   page: currentPage,
+// });
 
 watch(currentPage, scrollToStartGrid);
 

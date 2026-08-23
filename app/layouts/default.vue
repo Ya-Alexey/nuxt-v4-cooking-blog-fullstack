@@ -20,7 +20,7 @@
       class="app-layout__subscribe"
     />
 
-    <AppFooter />
+    <LazyAppFooter hydrate-never/>
   </div>
 </template>
 

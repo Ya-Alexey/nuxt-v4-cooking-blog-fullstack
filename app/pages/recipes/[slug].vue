@@ -14,18 +14,18 @@
         :value="recipeData" 
       />
     </main>
-    <LazyHydrationSectionSwiper 
+    <!-- <LazyHydrationSectionSwiper 
       v-if="relatedRecipes?.length"
       :recipe-list="relatedRecipes"
       :hydrate-on-visible="{ rootMargin: '100px' }" 
     >
       <template #title>Похожие рецепты</template>
-    </LazyHydrationSectionSwiper>
+    </LazyHydrationSectionSwiper> -->
   </template>
 </template>
 
 <script lang="ts" setup>
-import type { RecipeCard } from '~/types/common';
+// import type { RecipeCard } from '~/types/common';
 
 const LazyHydrationSectionSwiper = defineLazyHydrationComponent(
   'visible',
@@ -43,31 +43,29 @@ const {
     .first()
 );
 
-const { data: relatedRecipes } = await useAsyncData<RecipeCard[]>(
-  `related-for-${route.path}`, 
-  () => {
-    const recipe = recipeData?.value
-    if (!recipe) {
-      return Promise.resolve([])
-    }
-    const query = queryCollection('recipes')
-      .where('category', '=', recipe.category)
-      .where('path', '<>', recipe.path);
+// const { data: relatedRecipes } = await useAsyncData<RecipeCard[]>(
+//   `related-for-${route.path}`, 
+//   () => {
+//     const recipe = recipeData?.value
+//     if (!recipe) {
+//       return Promise.resolve([])
+//     }
+//     const query = queryCollection('recipes')
+//       .where('category', '=', recipe.category)
+//       .where('path', '<>', recipe.path);
 
-    return selectRecipeCardFields(query)
-      .limit(5)
-      .all()
-  },
-  {
-    watch: [() => recipeData.value?.path]
-  }
-);
+//     return selectRecipeCardFields(query)
+//       .limit(5)
+//       .all()
+//   },
+//   {
+//     watch: [() => recipeData.value?.path]
+//   }
+// );
 
 useProvideRecipeItemContext(recipeData);
 
 watchEffect(() => {
-  console.log('recipeData', recipeData.value);
-  
   if (recipeData.value === null) {
     throw createError({
       statusCode: 404,

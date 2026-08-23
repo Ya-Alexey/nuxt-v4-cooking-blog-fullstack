@@ -10,26 +10,20 @@
     <BannerWelcome />
     <SectionPalette />
     
-    <LazyHydrationSectionSwiper 
-      v-if="featuredRecipes?.length"
-      :recipe-list="featuredRecipes"
-      :hydrate-on-visible="{ rootMargin: '100px' }" 
+    <LazySectionSwiper 
+      v-if="featuredRecipes?.success"
+      :recipe-list="featuredRecipes.data"
+      hydrate-on-visible 
     >
       <template #title>Рекомендуем</template>
-    </LazyHydrationSectionSwiper>
+    </LazySectionSwiper>
 
-    <SectionAbout />
+    <LazySectionAbout hydrate-never/>
   </main>
 </template>
 
 <script lang="ts" setup>
-const LazyHydrationSectionSwiper = defineLazyHydrationComponent(
-  'visible',
-  () => import('~/components/SectionSwiper.vue'),
-);
-
-const { data } = await useFeaturedRecipesApi();
-const { data: featuredRecipes } = await useFeaturedRecipes();
+const { data: featuredRecipes } = await useFeaturedRecipesApi();
 </script>
 
 <style lang="scss" scoped>

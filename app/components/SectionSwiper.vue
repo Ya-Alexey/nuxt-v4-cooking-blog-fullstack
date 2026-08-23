@@ -60,7 +60,7 @@
 
 <script lang="ts" setup>
 import type { Swiper } from 'swiper'
-import type { RecipeCard } from '~/types/common';
+import type { RecipeCard } from '~~/server/schemas/recipes';
 
 const {
   recipeList,

@@ -26,7 +26,7 @@
         <BaseBtn
           class="card-recipe__link"
           tag="NuxtLink"
-          :to="cardData.path"
+          :to="`recipes/${cardData.slug}`"
           theme="default-outline"
         >Заглянуть в рецепт</BaseBtn>
       </div>
@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import type { RecipeCard } from '~/types/common';
+import type { RecipeCard } from '~~/server/schemas/recipes';
 
 const {
   cardData,

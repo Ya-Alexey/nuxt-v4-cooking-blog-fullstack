@@ -30,7 +30,10 @@ function generateMockRecipes(count: number) {
       slug,
       description: faker.food.description(), // Описание вкуса/блюда
       welcomeDescription: `Потрясающий и очень нежный рецепт: ${title}!`,
-      preview: faker.image.urlLoremFlickr({ category: 'food' }), 
+      preview: faker.image.url({
+        width: 1344,
+        height: 768,
+      }), 
       category: faker.helpers.arrayElement(categories),
       prep: faker.helpers.arrayElement(preps),       
       vegan: faker.datatype.boolean(),
