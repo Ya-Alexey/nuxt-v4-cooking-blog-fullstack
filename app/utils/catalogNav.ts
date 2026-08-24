@@ -1,4 +1,4 @@
-import type { RecipeCategory } from "~/types/common";
+import type { RecipeCategory } from "~~/shared/constants";
 
 interface CatalogNav {
   key: RecipeCategory | 'all'

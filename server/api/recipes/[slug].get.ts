@@ -23,7 +23,9 @@ export default defineEventHandler(async (evt) => {
         message: 'Рецепт не найден' 
       });
     }
-    return sendResponseSuccess(evt, recipe)
+    return sendResponseSuccess(evt, {
+      data: recipe
+    });
   } catch (error: any) {
     const statusCode = error?.statusCode
     if (statusCode === HttpStatus.NotFound || statusCode === HttpStatus.BadRequest) {

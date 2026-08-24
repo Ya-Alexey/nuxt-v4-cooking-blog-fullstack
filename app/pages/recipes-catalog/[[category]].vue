@@ -40,7 +40,7 @@
       />
     </div> -->
 
-    <div 
+    <!-- <div 
       v-if="totalPages > 1"
       class="recipes-catalog__pagination"
     >
@@ -59,33 +59,58 @@
           }
         }"
       >{{ page }}</BaseBtn>
-    </div>
+    </div> -->
   </main>
 </template>
 
 <script lang="ts" setup>
+import { queryRecipePaginationSchema } from '~~/shared/schemas/recipes-pagination';
+
 definePageMeta({
   scrollToTop(to, from) {
     return to.name !== from.name
   },
 });
+const { $api } = useNuxtApp();
 
-const LIMIT = 6;
 const HEADER_OFFSET = 86;
 const categoryEl = useTemplateRef('categoryEl');
 const currentCategory = useCatalogCategory();
-
 const catalogSeo = useCatalogSeo(currentCategory);
-const { data: totalCount } = await useRecipesCollectionCount(currentCategory);
+const route = useRoute();
 
-const {
-  currentPage,
-  skip,
-  totalPages,
-} = usePagePagination({
-  limit: LIMIT,
-  total: totalCount,
+const queryParams = computed(
+  () => queryRecipePaginationSchema.parse(route.query)
+);
+
+const { data: pageData, error } = await useAsyncData(
+  () => `recipes-catalog-${currentCategory.value}-${queryParams.value.page}`,
+  () => {
+    if (currentCategory.value === 'not-found') {
+      return Promise.resolve(null)
+    }
+    const category = currentCategory.value !== 'all' ? currentCategory.value : undefined
+    return $api.recipes.get({
+      ...queryParams.value,
+      category,
+    });
+  }
+);
+
+watchEffect(() => {
+  console.log('data', pageData.value);
 });
+
+// const { data: totalCount } = await useRecipesCollectionCount(currentCategory);
+
+// const {
+//   currentPage,
+//   skip,
+//   totalPages,
+// } = usePagePagination({
+//   limit: LIMIT,
+//   total: totalCount,
+// });
 
 // const { data: catalogData } = await useCatalogData({
 //   limit: LIMIT,
@@ -94,7 +119,7 @@ const {
 //   page: currentPage,
 // });
 
-watch(currentPage, scrollToStartGrid);
+// watch(currentPage, scrollToStartGrid);
 
 watchEffect(() => {
   if (currentCategory.value === NOT_FOUND_CATEGORY) {
@@ -103,6 +128,9 @@ watchEffect(() => {
       statusMessage: 'Page Not Found',
       fatal: true
     });
+  }
+  if (error.value) {
+    throw createError(error.value)
   }
 });
 

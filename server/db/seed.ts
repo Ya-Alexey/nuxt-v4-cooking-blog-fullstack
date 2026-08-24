@@ -25,15 +25,15 @@ function generateMockRecipes(count: number) {
       .toLowerCase() 
       .replace(/[^a-z0-9]+/g, '-')}-${faker.number.int({ min: 1000, max: 9999 })}`;
 
+    const previewNum = faker.number.int({ min: 1, max: 34 });
+    const previewImage = `/images/random/${previewNum}.webp`;
+
     result.push({
       title,
       slug,
       description: faker.food.description(), // Описание вкуса/блюда
       welcomeDescription: `Потрясающий и очень нежный рецепт: ${title}!`,
-      preview: faker.image.url({
-        width: 1344,
-        height: 768,
-      }), 
+      preview: previewImage, 
       category: faker.helpers.arrayElement(categories),
       prep: faker.helpers.arrayElement(preps),       
       vegan: faker.datatype.boolean(),

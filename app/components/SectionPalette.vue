@@ -35,8 +35,9 @@
   </section>
 </template>
 
-<script lang="ts" setup> 
-import type { RecipeCategory } from '~/types/common'
+<script lang="ts" setup>
+import type { RecipeCategory } from '~~/shared/constants'
+
 type RecipeCategoryPalette = Exclude<RecipeCategory, 'vegan'>
 
 interface PaletteNav {

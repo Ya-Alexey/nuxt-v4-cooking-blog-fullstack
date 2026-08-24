@@ -16,7 +16,10 @@ export default defineEventHandler(async (evt) => {
       .values(validatedData)
       .returning();
 
-    return sendResponseSuccess(evt, newRecipe, HttpStatus.Created);
+    return sendResponseSuccess(evt, {
+      data: newRecipe, 
+      statusCode: HttpStatus.Created
+    });
   } catch (error: any) {
     const isZodError = error instanceof z.ZodError;
     const statusCode = isZodError 

@@ -15,7 +15,9 @@ export default defineEventHandler(async (evt) => {
       .from(recipes)
       .where(eq(recipes.featured, true))
 
-    return sendResponseSuccess(evt, recipeCards)
+    return sendResponseSuccess(evt, {
+      data: recipeCards
+    });
   } catch (error: any) {
     throw createError({
       statusCode: HttpStatus.InternalServerError,

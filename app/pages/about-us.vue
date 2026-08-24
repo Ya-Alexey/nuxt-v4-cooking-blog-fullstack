@@ -12,13 +12,13 @@
     <AboutMain />
   </main>
   <SectionSwiper 
-    v-if="featuredRecipes?.length"
-    :recipe-list="featuredRecipes"
+    v-if="featuredRecipes?.success"
+    :recipe-list="featuredRecipes.data"
   >
     <template #title>Рекомендуем</template>
   </SectionSwiper>
 </template>
 
 <script lang="ts" setup>
-const { data: featuredRecipes } = await useFeaturedRecipes();
+const { data: featuredRecipes } = await useFeaturedRecipesApi();
 </script>

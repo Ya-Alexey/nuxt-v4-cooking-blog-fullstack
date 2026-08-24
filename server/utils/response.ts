@@ -1,15 +1,23 @@
 import { setResponseStatus } from 'h3'
 import { HttpStatus, HttpStatusCode } from '~~/server/utils/httpStatus'
 
-export function sendResponseSuccess<T>(
+export function sendResponseSuccess<Data, Meta>(
     event: any, 
-    data: T, 
-    statusCode: HttpStatusCode = HttpStatus.Ok
+    {
+      data,
+      meta,
+      statusCode = HttpStatus.Ok,
+    }: {
+      data: Data, 
+      meta?: Meta
+      statusCode?: HttpStatusCode
+    }
 ) {
   setResponseStatus(event, statusCode)
   return {
     success: true as const,
-    data
+    data,
+    meta,
   }
 }
 
