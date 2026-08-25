@@ -13,8 +13,9 @@
         class="section-article__content"
       > 
         <h2 class="fnt-h2">Кулинарная карта</h2>
-        <div v-html="recipeArticle.contentMap"></div>
-        <!-- <slot name="content-map"></slot> -->
+        <Markdown
+          class="section-article__content"
+        >{{ recipeArticle.contentMap }}</Markdown>
       </section>
   
       <div class="section-article__aside">
@@ -46,8 +47,9 @@
         class="section-article__content"
       >
         <h2 class="fnt-h2">Магия процесса</h2>
-        <div v-html="recipeArticle.contentProcess"></div>
-        <!-- <slot name="content-process"></slot> -->
+        <Markdown
+          class="section-article__content"
+        >{{ recipeArticle.contentProcess }}</Markdown>
       </section>
   
       <ControlSocials 

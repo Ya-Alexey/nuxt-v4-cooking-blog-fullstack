@@ -82,18 +82,10 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     '@pinia/nuxt',
     'nuxt-swiper',
-    '@nuxt/content',
+    '@comark/nuxt',
   ],
   swiper: {
     'bundled': false,
-  },
-  content: {
-    experimental: { 
-      sqliteConnector: 'native',
-     },
-    renderer: {
-      anchorLinks: false,
-    },
   },
   svgSprite: {
     input: './app/assets/sprite/svg',
