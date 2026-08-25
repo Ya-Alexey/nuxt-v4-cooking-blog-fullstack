@@ -13,14 +13,14 @@
         :recipe-article="recipeData"
       />
     </main>
-    <!-- TODO рекомендуемое -->
-    <!-- <LazyHydrationSectionSwiper 
-      v-if="relatedRecipes?.length"
-      :recipe-list="relatedRecipes"
-      :hydrate-on-visible="{ rootMargin: '100px' }" 
+
+    <LazySectionSwiper 
+      v-if="relatedList"
+      :recipe-list="relatedList"
+      hydrate-on-visible
     >
       <template #title>Похожие рецепты</template>
-    </LazyHydrationSectionSwiper> -->
+    </LazySectionSwiper>
   </template>
 </template>
 
@@ -35,6 +35,34 @@ const {
   () => `page-recipe-${routeSlug.value}`,
   () => $api.recipes.getBySlug(routeSlug.value),
 );
+const recipeData = computed(() => pageData.value?.data);
 
-const recipeData = computed(() => pageData.value?.data)
+const {
+  data: relatedData
+} = await useAsyncData(
+  () => `related-recipes-${recipeData.value?.category ?? 'category'}`,
+  () => {
+    if (!recipeData.value?.category) {
+      return Promise.resolve(null);
+    }
+    return $api.recipes.get({
+      category: recipeData.value.category,
+    });
+  },
+  {
+    getCachedData(key, nuxtApp) {
+      const cachedData = nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+      return cachedData
+    },
+  }
+);
+
+const relatedList = computed(() => {
+  if (!relatedData.value) {
+    return null
+  }
+  const mainRecipeId = recipeData.value!.id;
+  return relatedData.value.data.filter(({ id }) => id !== mainRecipeId)
+});
+
 </script>

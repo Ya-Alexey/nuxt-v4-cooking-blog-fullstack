@@ -103,6 +103,10 @@ export default defineNuxtConfig({
           'Cache-Control': 'public, max-age=31536000, immutable' 
         } 
       },
+      '/': { swr: 3600 },
+      '/about-us': { swr: 3600 },
+      '/recipes/**': { swr: 3600 },
+      '/recipes-catalog/**': { swr: 3600 },
     },
     nitro: {
       // Включает сжатие Brotli и Gzip для всех текстовых ресурсов и шрифтов
