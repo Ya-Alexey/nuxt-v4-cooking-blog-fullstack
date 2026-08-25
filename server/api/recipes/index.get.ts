@@ -35,6 +35,7 @@ export default defineEventHandler(async (evt) => {
 
     const totalItems = countResult?.total ?? 0;
     const totalPages = Math.ceil(totalItems / limit);
+    
     return sendResponseSuccess(evt, {
       data: recipeCards,
       meta: {

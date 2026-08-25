@@ -1,5 +1,8 @@
 <template>
-  <main class="recipes-catalog">
+  <main 
+    class="recipes-catalog"
+    v-if="pageData?.success"
+  >
     <Head v-if="catalogSeo">
       <Title>{{ catalogSeo.title }}</Title>
       <Meta 
@@ -29,37 +32,37 @@
       >{{ nav.label }}</BaseBtn>
     </div>
 
-    <!-- <div 
-      v-if="catalogData?.length"
+    <div 
+      v-if="pageData.data.length"
       class="recipes-catalog__grid"
     >
       <CardRecipe 
-        v-for="recipe in catalogData"
+        v-for="recipe in pageData.data"
         :key="recipe.id"
         :card-data="recipe"
       />
-    </div> -->
+    </div>
 
-    <!-- <div 
-      v-if="totalPages > 1"
+    <div 
+      v-if="pageMeta?.totalPages && pageMeta.totalPages > 1"
       class="recipes-catalog__pagination"
     >
       <span class="fnt-p-1">Страницы: </span>
 
       <BaseBtn 
-        v-for="page in totalPages"
+        v-for="page in pageMeta.totalPages"
         :key="page"
         theme="default-outline"
         class="recipes-catalog__link"
         tag="NuxtLink"
-        :state="page === currentPage ? 'active' : 'default'"
+        :state="page === pageMeta.currentPage ? 'active' : 'default'"
         :to="{
           query: {
             page,
           }
         }"
       >{{ page }}</BaseBtn>
-    </div> -->
+    </div>
   </main>
 </template>
 
@@ -84,7 +87,7 @@ const queryParams = computed(
 );
 
 const { data: pageData, error } = await useAsyncData(
-  () => `recipes-catalog-${currentCategory.value}-${queryParams.value.page}`,
+  () => `recipes-catalog-${currentCategory.value}-page-${queryParams.value.page}-limit-${queryParams.value.limit}`,
   () => {
     if (currentCategory.value === 'not-found') {
       return Promise.resolve(null)
@@ -97,29 +100,9 @@ const { data: pageData, error } = await useAsyncData(
   }
 );
 
-watchEffect(() => {
-  console.log('data', pageData.value);
-});
+const pageMeta = computed(() => pageData.value?.meta);
 
-// const { data: totalCount } = await useRecipesCollectionCount(currentCategory);
-
-// const {
-//   currentPage,
-//   skip,
-//   totalPages,
-// } = usePagePagination({
-//   limit: LIMIT,
-//   total: totalCount,
-// });
-
-// const { data: catalogData } = await useCatalogData({
-//   limit: LIMIT,
-//   skip,
-//   category: currentCategory,
-//   page: currentPage,
-// });
-
-// watch(currentPage, scrollToStartGrid);
+watch(() => pageMeta.value?.currentPage, scrollToStartGrid);
 
 watchEffect(() => {
   if (currentCategory.value === NOT_FOUND_CATEGORY) {

@@ -1,7 +1,10 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <NuxtLayout>
-    <div class="error-page">
+    <div 
+      v-if="error"
+      class="error-page"
+    >
       <div class="error-page__inner">
         <img class="error-page__image" :src="errorData.image" alt="">
         <div 
