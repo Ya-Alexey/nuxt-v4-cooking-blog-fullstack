@@ -8,6 +8,8 @@ const isDev = import.meta.dev;
 export default defineEventHandler(async (evt) => {
   try {
     const slug = getRouterParam(evt, 'slug');
+    console.log('slug', slug);
+    
     if (!slug || typeof slug !== 'string') {
       throw createError({ 
         statusCode: HttpStatus.BadRequest, 

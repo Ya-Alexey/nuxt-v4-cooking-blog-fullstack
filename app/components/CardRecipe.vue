@@ -26,7 +26,7 @@
         <BaseBtn
           class="card-recipe__link"
           tag="NuxtLink"
-          :to="`/recipes-catalog/${cardData.slug}`"
+          :to="`/recipes/${cardData.slug}`"
           theme="default-outline"
         >Заглянуть в рецепт</BaseBtn>
       </div>

@@ -1,7 +1,6 @@
 <!-- eslint-disable vue/no-v-html -->
 <template>
   <article 
-    v-if="recipeArticle"
     class="section-article" 
   >
     <ArticleWelcome 
@@ -14,7 +13,8 @@
         class="section-article__content"
       > 
         <h2 class="fnt-h2">Кулинарная карта</h2>
-        <slot name="content-map"></slot>
+        <div v-html="recipeArticle.contentMap"></div>
+        <!-- <slot name="content-map"></slot> -->
       </section>
   
       <div class="section-article__aside">
@@ -46,7 +46,8 @@
         class="section-article__content"
       >
         <h2 class="fnt-h2">Магия процесса</h2>
-        <slot name="content-process"></slot>
+        <div v-html="recipeArticle.contentProcess"></div>
+        <!-- <slot name="content-process"></slot> -->
       </section>
   
       <ControlSocials 
@@ -60,7 +61,13 @@
 </template>
 
 <script lang="ts" setup>
-const recipeArticle = useInjectRecipeItemContext();
+import type { RecipeArticle } from '~~/server/schemas/recipes'
+
+const {
+  recipeArticle
+} = defineProps<{
+  recipeArticle: RecipeArticle
+}>();
 </script>
 
 <style lang="scss" scoped>

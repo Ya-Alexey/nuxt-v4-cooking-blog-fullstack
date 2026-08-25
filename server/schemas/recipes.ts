@@ -2,6 +2,7 @@ import { pgTable, serial, text, timestamp, boolean, integer } from 'drizzle-orm/
 import { categoryEnum, prepDifficultyEnum } from './_enums'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
 import { z } from 'zod/v4'
+import type { SerializeObject } from 'nitropack'
 
 export const recipes = pgTable('recipes', {
   id: serial('id').primaryKey(),
@@ -54,3 +55,5 @@ export const insertRecipeSchema = baseInsertSchema.extend({
 // Схема для отдачи наружу
 export const publicRecipeResponseSchema = createSelectSchema(recipes)
   .omit({ updatedAt: true });
+
+export type RecipeArticle = SerializeObject<Recipe>

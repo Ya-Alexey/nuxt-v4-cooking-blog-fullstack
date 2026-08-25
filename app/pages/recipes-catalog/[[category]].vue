@@ -178,9 +178,11 @@ function scrollToStartGrid() {
   &__pagination {
     margin: 32px 0;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     column-gap: 16px;
+    row-gap: 8px;
   }
 }
 </style>

@@ -9,11 +9,11 @@
       />
     </Head>
     <main>
-      <!-- <SectionArticle /> -->
-      <ContentRenderer 
-        :value="recipeData" 
+      <SectionArticle 
+        :recipe-article="recipeData"
       />
     </main>
+    <!-- TODO рекомендуемое -->
     <!-- <LazyHydrationSectionSwiper 
       v-if="relatedRecipes?.length"
       :recipe-list="relatedRecipes"
@@ -25,53 +25,16 @@
 </template>
 
 <script lang="ts" setup>
-// import type { RecipeCard } from '~/types/common';
-
-const LazyHydrationSectionSwiper = defineLazyHydrationComponent(
-  'visible',
-  () => import('~/components/SectionSwiper.vue'),
-);
-
+const { $api } = useNuxtApp();
 const route = useRoute();
+const routeSlug = computed(() => route.params.slug as string);
 
 const {
-  data: recipeData,
+  data: pageData
 } = await useAsyncData(
-  route.path, 
-  () => queryCollection('recipes')
-    .path(route.path)
-    .first()
+  () => `page-recipe-${routeSlug.value}`,
+  () => $api.recipes.getBySlug(routeSlug.value),
 );
 
-// const { data: relatedRecipes } = await useAsyncData<RecipeCard[]>(
-//   `related-for-${route.path}`, 
-//   () => {
-//     const recipe = recipeData?.value
-//     if (!recipe) {
-//       return Promise.resolve([])
-//     }
-//     const query = queryCollection('recipes')
-//       .where('category', '=', recipe.category)
-//       .where('path', '<>', recipe.path);
-
-//     return selectRecipeCardFields(query)
-//       .limit(5)
-//       .all()
-//   },
-//   {
-//     watch: [() => recipeData.value?.path]
-//   }
-// );
-
-useProvideRecipeItemContext(recipeData);
-
-watchEffect(() => {
-  if (recipeData.value === null) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Page Not Found',
-      fatal: true
-    });
-  }
-});
+const recipeData = computed(() => pageData.value?.data)
 </script>
