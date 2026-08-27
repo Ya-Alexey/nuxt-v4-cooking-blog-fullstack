@@ -1,5 +1,17 @@
 # Кулинарный блог с каталогом рецептов
+фулстек-блог с рецептами, построенный на архитектуре **Nuxt 4** и **Drizzle ORM**.
 
+## ✨ Ключевые особенности
+
+* **Nuxt 4 Architecture**: использование новой структуры директорий (`app/`) и встроенного серверного движка Nitro.
+* **Type-Safe Fullstack**: сквозная типизация данных благодаря связке TypeScript + Drizzle ORM.
+
+## 🛠 Стек технологий
+
+* **Frontend & Backend**: Nuxt 4 (Vue 3, Composition API)
+* **База данных & ORM**: PostgreSQL + Drizzle ORM
+* **Стилизация**: SCSS
+* **Валидация данных**: Zod
 
 # Nuxt Minimal Starter
 
