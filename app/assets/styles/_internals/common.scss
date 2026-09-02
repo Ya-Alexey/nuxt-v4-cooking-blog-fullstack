@@ -23,3 +23,13 @@
   height: 100%;
   @include transition-default(fill, stroke, transform);
 }
+
+.base-fade-enter-active,
+.base-fade-leave-active {
+  @include transition-default(opacity);
+}
+
+.base-fade-enter-from,
+.base-fade-leave-to {
+  opacity: 0;
+}

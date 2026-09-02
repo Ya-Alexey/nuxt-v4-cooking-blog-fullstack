@@ -8,6 +8,7 @@
     <AppHeader 
       ref="headerEl"
       @scroll-to-subscribe="scrollToSubscribe"
+      @clickAuth="toggleAuth(true)"
     />
 
     <div class="app-layout__main">
@@ -21,17 +22,66 @@
     />
 
     <LazyAppFooter hydrate-never/>
+
+    <Teleport to="#teleports">
+      <Transition 
+        name="base-fade"
+        @afterLeave="onCloseAuth()"
+        @beforeEnter="onOpenAuth()"  
+      >
+        <LazyAuthPopup 
+          v-if="isOpenAuth"
+          ref="authEl"
+          :is-active="isOpenAuth"
+          @update:is-active="toggleAuth(false)"
+        />
+      </Transition>
+    </Teleport>
   </div>
 </template>
 
 <script lang="ts" setup>
+const AUTH_OVERLAY_ID ='auth-overlay';
 const HEADER_OFFSET = 16;
 const headerEl = useTemplateRef('headerEl');
 const subscribeEl = useTemplateRef('subscribeEl');
+const authEl =  useTemplateRef('authEl');
 const router = useRouter();
 const error = useError();
-const { handleRouteChange } = useOverlayManager();
+
+const {
+  register,
+  unregister,
+  handleRouteChange,
+} = useOverlayManager();
 router.afterEach(handleRouteChange);
+
+const {
+  isActive: isOpenAuth,
+  toggleState: toggleAuth,
+} = useActiveState();
+
+const authOverlay = {
+  id: AUTH_OVERLAY_ID,
+  type: 'modal',
+  close: () => toggleAuth(false),
+  closeOnRouteChange: true,
+  contentElement: () => authEl.value?.$el,
+} as const satisfies OverlayInstance;
+
+onBeforeUnmount(() => {
+  unregister(AUTH_OVERLAY_ID);
+});
+
+function onOpenAuth() {
+  freezeScroll();
+  register(authOverlay);
+}
+
+function onCloseAuth() {
+  resetBodyStyle();
+  unregister(AUTH_OVERLAY_ID);
+}
 
 function scrollToSubscribe() {
   const subscribeHtml = subscribeEl.value?.$el as HTMLElement | null;

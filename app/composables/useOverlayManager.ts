@@ -5,13 +5,18 @@ export interface OverlayInstance {
   type: OverlayType
   close: () => void
   closeOnRouteChange: boolean
-  triggerElement?: HTMLElement | null
-  contentElement?: HTMLElement | null
+  triggerElement?: MaybeRefOrGetter<HTMLElement | null>
+  contentElement?: MaybeRefOrGetter<HTMLElement | null>
 }
 
 export const useOverlayManager = () => {
-  const activeOverlays = useState<OverlayInstance[]>('overlays-list', () => []);
-  const isGlobalListenerActive = useState<boolean>('overlays-global-listener', () => false);
+  const activeOverlays = useState<OverlayInstance[]>(
+    'overlays-list', () => []
+  );
+
+  const isGlobalListenerActive = useState<boolean>(
+    'overlays-global-listener', () => false
+  );
 
   function register(instance: OverlayInstance) {
     // Если это модалка, закрыть все дропдауны
@@ -64,8 +69,8 @@ export const useOverlayManager = () => {
       return;
     }
     const { triggerElement, contentElement } = topOverlay;
-    const clickedInsideTrigger = triggerElement?.contains(target);
-    const clickedInsideContent = contentElement?.contains(target);
+    const clickedInsideTrigger = toValue(triggerElement)?.contains(target);
+    const clickedInsideContent = toValue(contentElement)?.contains(target);
 
     if (!clickedInsideTrigger && !clickedInsideContent) {
       topOverlay.close();
@@ -81,7 +86,7 @@ export const useOverlayManager = () => {
       return;
     }
     topOverlay.close();
-    topOverlay.triggerElement?.focus();
+    toValue(topOverlay.triggerElement)?.focus();
   }
 
   function initGlobalListeners() {

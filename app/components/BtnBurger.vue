@@ -1,14 +1,13 @@
 <template>
-  <button
-    class="btn-burger reset-btn"
+  <BtnCircled
+    class="btn-burger"
     :class="classes"
-    type="button"
     @click="toggleState()"
   >
     <span class="btn-burger__line"></span>
     <span class="btn-burger__line"></span>
     <span class="btn-burger__line"></span>
-  </button>
+  </BtnCircled>
 </template>
 
 <script lang="ts" setup>
@@ -40,23 +39,7 @@ function toggleState() {
 .btn-burger {
   --line-color: var(--dark-color);
   --bg-color: var(--dark-color);
-  width: 34px;
-  height: 34px;
-  border-radius: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 9px;
   row-gap: 3px;
-  @include apply-tint(background-color, var(--bg-color), 84%);
-  @include transition-default(background-color);
-  @include mediaHover() {
-    @include apply-tint(background-color, var(--bg-color), 74%);
-  }
-  &:focus-visible {
-    outline: 1px solid var(--primary-color-2);
-  }
   &--is-active {
     --line-color: var(--primary-color-2);
     --bg-color: var(--light-color);

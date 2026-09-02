@@ -17,6 +17,7 @@
       >
         <AppLogo class="app-header__svg"/>
       </NuxtLink>
+
       <BtnBurger 
         ref="burgerEl"
         :is-active="isOpenMenu"
@@ -24,8 +25,16 @@
         aria-label="переключить видимость меню"
         :aria-expanded="!isOpenMenu"
         aria-controls="main-head-nav"
-        @update:is-active="toggleMenu($event)"
+        @update:is-active="onToggleMenu($event)"
       />
+
+      <BtnCircled
+        class="app-header__mobile"
+        aria-label="вход в аккаунт"
+        @click="$emit('clickAuth')"
+      >
+        <SvgIcon class="app-header__fill" name="icon-user" />
+      </BtnCircled>
     </div>
 
     <div 
@@ -42,6 +51,14 @@
             @click="scrollToSubscribe"
           >Подписаться</BaseBtn>
 
+          <BtnCircled
+            class="app-header__desktop"
+            aria-label="вход в аккаунт"
+            @click="$emit('clickAuth')"
+          >
+            <SvgIcon class="app-header__fill" name="icon-user" />
+          </BtnCircled>
+
           <LazyMenuSocials 
             hydrate-never
             class="app-header__socials"
@@ -56,7 +73,8 @@
 const HEADER_OVERLAY_ID ='main-header';
 
 const emit = defineEmits<{
-  'scrollToSubscribe': []
+  'scrollToSubscribe': [],
+  'clickAuth': [],
 }>();
 
 const headerEl = useTemplateRef('headerEl');
@@ -87,16 +105,16 @@ watch(isOpenMenu, toggleBodyScroll);
 
 let observerInstance: IntersectionObserver | null = null;
 
+const headerOverlay = {
+  id: HEADER_OVERLAY_ID,
+  type: 'drawer',
+  close: closeMenu,
+  closeOnRouteChange: true,
+  triggerElement: () => burgerEl.value?.$el,
+  contentElement: headerEl,
+} as const satisfies OverlayInstance
+
 onMounted(() => {
-  const headerOverlay: OverlayInstance = {
-    id: HEADER_OVERLAY_ID,
-    type: 'drawer',
-    close: closeMenu,
-    closeOnRouteChange: true,
-    triggerElement: burgerEl.value?.$el,
-    contentElement: headerEl.value,
-  }
-  register(headerOverlay);
   initStickyObserve();
   if (!isOpenMenu.value) {
     toggleBodyScroll(false);
@@ -110,6 +128,15 @@ onBeforeUnmount(() => {
     observerInstance = null;
   }
 });
+
+function onToggleMenu(isActive: boolean) {
+  toggleMenu(isActive);
+  if (isActive) {
+    register(headerOverlay);
+  } else {
+    unregister(HEADER_OVERLAY_ID);
+  }
+}
 
 function initStickyObserve() {
   observerInstance = new IntersectionObserver((entries) => {
@@ -160,6 +187,18 @@ function scrollToSubscribe() {
     border-color var(--base-timing) 0.1s,
     border-radius var(--base-timing) 0.1s,
   ;
+  .app-header__mobile {
+    @include media('min800') {
+      display: none;
+    }
+  }
+  .app-header__desktop {
+    display: none;
+    margin-left: 8px;
+    @include media('min800') {
+      display: flex;
+    }
+  }
   @include media('min800') {
     padding: 15px 23px;
     display: flex;
@@ -181,6 +220,9 @@ function scrollToSubscribe() {
       @include media('min800') {
         --text-color: var(--dark-color);
       }
+    }
+    .app-header__fill {
+      fill: var(--primary-color-2);
     }
     .app-header__dropdown {
       grid-template-rows: 1fr;
@@ -213,6 +255,7 @@ function scrollToSubscribe() {
   }
   &__burger {
     flex-shrink: 0;
+    margin-left: auto;
     @include media('min800') {
       display: none;
     }
