@@ -5,10 +5,12 @@
 
 * **Nuxt 4 Architecture**: использование новой структуры директорий (`app/`) и встроенного серверного движка Nitro.
 * **Type-Safe Fullstack**: сквозная типизация данных благодаря связке TypeScript + Drizzle ORM.
+* **Secure Authentication**: полноценная авторизация пользователей на базе **better-auth** (сессии, регистрация, вход).
 
 ## 🛠 Стек технологий
 
 * **Frontend & Backend**: Nuxt 4 (Vue 3, Composition API)
+* **Аутентификация**: better-auth
 * **База данных & ORM**: PostgreSQL + Drizzle ORM
 * **Стилизация**: SCSS
 * **Валидация данных**: Zod
