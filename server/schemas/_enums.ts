@@ -1,5 +1,5 @@
 import { pgEnum } from 'drizzle-orm/pg-core'
-import { RECIPE_CATEGORIES_LIST, RECIPE_PREP_DIFFICULTY } from '~~/shared/constants'
+import { RECIPE_CATEGORIES_LIST, RECIPE_PREP_DIFFICULTY } from '../../shared/constants'
 
 export const categoryEnum = pgEnum(
   'recipe_category', 

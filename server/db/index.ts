@@ -2,10 +2,12 @@ import { drizzle } from 'drizzle-orm/node-postgres'
 import pg from 'pg'
 import * as recipesSchema from '../schemas/recipes'
 import * as enumsSchema from '../schemas/_enums'
+import * as authSchema from '../schemas/auth'
 
 const schema = {
   ...recipesSchema,
-  ...enumsSchema
+  ...enumsSchema,
+  ...authSchema,
 }
 
 // Создаем пул соединений

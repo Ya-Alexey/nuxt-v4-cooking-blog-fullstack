@@ -19,6 +19,10 @@ function getWindowScrollOffset(): number {
  */
 function freezeScroll() {
   const scrollWidth = getWindowScrollOffset();
+  if (!scrollWidth) {
+    return;
+  }
+  
   document.body.style.cssText = `
     overflow: hidden;
     padding-right: ${scrollWidth}px;
