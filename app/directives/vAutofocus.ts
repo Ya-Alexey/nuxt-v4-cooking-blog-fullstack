@@ -1,3 +1,4 @@
+/// <reference lib="dom" />
 import type { Directive } from "vue";
 
 /**

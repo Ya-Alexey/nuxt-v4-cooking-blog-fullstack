@@ -10,7 +10,7 @@ const FOCUSABLE_SELECTOR = [
   'embed',
   '[contenteditable]',
   '[tabindex]:not([tabindex="-1"])'
-].join(',')
+].join(',');
 
 export function getFocusableElements(
   container: HTMLElement

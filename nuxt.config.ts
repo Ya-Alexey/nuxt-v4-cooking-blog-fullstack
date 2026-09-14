@@ -91,6 +91,18 @@ export default defineNuxtConfig({
     input: './app/assets/sprite/svg',
     output: './app/assets/sprite/gen',
   },  
+  typescript:{
+    typeCheck: 'build',
+    tsConfig: {
+      compilerOptions: {
+        plugins: [
+          {
+            name: "@nuxt/tsconfig"
+          }
+        ]
+      },
+    },
+  },
   $production: {
     routeRules: {
       '/fonts/**': { 
@@ -113,31 +125,33 @@ export default defineNuxtConfig({
       compressPublicAssets: true 
     },
   },
-
   $development: {
     modules: ['@nuxtjs/html-validator'],
-    htmlValidator: {
-      usePrettier: true, 
-      logLevel: 'verbose', 
-      failOnError: false, 
-      
-      options: {
-        extends: [
-          'html-validate:recommended', 
-          'html-validate:document',  
-        ],
-        rules: {
-          'no-trailing-spaces': 'off',
-          'void-style': 'off',
-          'prefer-button': 'warn',
-          "valid-id": [
-            "error",
-            {
-              "relaxed": true
-            }
-          ]
+    ...({
+      htmlValidator: {
+        usePrettier: true, 
+        logLevel: 'verbose', 
+        failOnError: false, 
+        
+        options: {
+          extends: [
+            'html-validate:recommended', 
+            'html-validate:document',  
+          ],
+          rules: {
+            'no-trailing-spaces': 'off',
+            'void-style': 'off',
+            'prefer-button': 'warn',
+            "valid-id": [
+              "error",
+              {
+                "relaxed": true
+              }
+            ]
+          }
         }
       }
-    }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } as any) // NOTE можно сделать через разделение конфига на слои, в этом случае ломается весь vue-tsc
   },
 })

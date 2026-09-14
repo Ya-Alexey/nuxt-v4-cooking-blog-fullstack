@@ -25,13 +25,13 @@
 </template>
 
 <script lang="ts" setup>
-import type { RecipePrep } from '~/types/common';
+import type { RecipePrepDifficulty } from "~~/shared/constants"
 
 const {
   featureData,
 } = defineProps<{
   featureData: {
-    prep: RecipePrep
+    prep: RecipePrepDifficulty
     prepTime: number
     servesCount: number
   }

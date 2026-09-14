@@ -41,7 +41,6 @@ function resetInputState() {
 }
 
 function onSubmit() {
-  console.log('emainVal', emainVal.value);
   if (!isValidEmail.value) {
     inputState.value = 'invalid';
   }

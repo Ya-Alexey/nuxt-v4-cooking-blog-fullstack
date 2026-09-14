@@ -1,8 +1,8 @@
-import { setResponseStatus } from 'h3'
-import { HttpStatus, HttpStatusCode } from '~~/server/utils/httpStatus'
+import { type H3Event, setResponseStatus } from 'h3'
+import { HttpStatus, type HttpStatusCode } from '~~/server/utils/httpStatus'
 
 export function sendResponseSuccess<Data, Meta>(
-    event: any, 
+    event: H3Event, 
     {
       data,
       meta,
