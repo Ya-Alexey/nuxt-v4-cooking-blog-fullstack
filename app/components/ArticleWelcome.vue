@@ -21,7 +21,12 @@
 </template>
 
 <script lang="ts" setup>
-import type { RecipeWelcome } from '~/types/common';
+import type { RecipeArticle } from '~~/server/schemas/recipes'
+
+type RecipeWelcome = Pick<
+  RecipeArticle, 
+  "title" | "welcomeDescription" | "preview" | "prep" | "servesCount" | "prepTime"
+>
 
 defineProps<{
   welcomeData: RecipeWelcome

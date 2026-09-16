@@ -35,10 +35,7 @@ export const useOverlayManager = () => {
   }
 
   function closeAll() {
-    const activeOverlaysLength = getIndexedLength();
-    for (let i = activeOverlaysLength; i >= 0; i--) {
-      activeOverlays.value[i]!.close();
-    }
+    [...activeOverlays.value].reverse().forEach((overlay)=> overlay.close());
     activeOverlays.value = [];
   }
 
@@ -48,13 +45,11 @@ export const useOverlayManager = () => {
   }
 
   function handleRouteChange() {
-    const activeOverlaysLength = getIndexedLength();
-    for (let i = activeOverlaysLength; i >= 0; i--) {
-      const overlay = activeOverlays.value[i]!;
+    [...activeOverlays.value].reverse().forEach((overlay)=> {
       if (overlay.closeOnRouteChange) {
         overlay.close();
       }
-    }
+    });
   }
 
   function handleGlobalPointerDown(event: PointerEvent) {

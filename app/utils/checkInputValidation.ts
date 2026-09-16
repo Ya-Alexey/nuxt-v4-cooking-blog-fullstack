@@ -12,6 +12,9 @@ export interface InputValidProps {
  */
 export type InputValidRules<TForm extends Record<keyof TForm, string>> = Record<keyof TForm, InputValidProps>
 
+/**
+ * Проверяет валидность ввода. Ожидает только целые положительные числа в строке.
+ */
 export function checkIsValidInput(
   inputValue: string,
   {
@@ -66,7 +69,7 @@ function hasInvalidNumber(inputValue: string, {
   minNumber,
   maxNumber,
 }: InputValidProps = {}) {
-  const numValue = Number(getNumberFromString(inputValue));
+  const numValue = Number(getPositiveIntFromString(inputValue));
   const invalidMin = minNumber !== undefined && numValue < minNumber;
   const invalidMax = maxNumber !== undefined && numValue > maxNumber;
   if (invalidMin || invalidMax) {
