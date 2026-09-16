@@ -16,9 +16,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Шаг 2: Устанавливаем Node.js (рекомендуется 20+ для Nuxt 4)
+      # Шаг 2: Устанавливаем Node.js
       - name: Setup Node.js
-        uses: actions/core/setup-node@v4
+        uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: 'npm'
