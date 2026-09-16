@@ -1,0 +1,36 @@
+name: Continuous Integration
+
+# когда запускать тесты
+on:
+  push:
+    branches: [ main, master, develop ] # Запуск при пуше в эти ветки
+  pull_request:
+    branches: [ main, master, develop ] # Запуск при создании PR в эти ветки
+
+jobs:
+  test:
+    runs-on: ubuntu-latest # Запускаем на чистой Ubuntu
+
+    steps:
+      # Шаг 1: Скачиваем код репозитория на сервер GitHub
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Шаг 2: Устанавливаем Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'npm'
+
+      # Шаг 3: Чистая установка зависимостей строго по package-lock.json
+      - name: Install dependencies
+        run: npm ci
+
+      # Шаг 4: Генерируем типы Nuxt 4, чтобы Vitest видел автоимпорты
+      - name: Nuxt Prepare
+        run: npx nuxt prepare
+
+      # Шаг 5: Запускаем тесты Vitest в одиночном режиме
+      - name: Run Vitest
+        run: npx vitest run
