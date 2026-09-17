@@ -6,14 +6,22 @@
 * **Nuxt 4 Architecture**: использование новой структуры директорий (`app/`) и встроенного серверного движка Nitro.
 * **Type-Safe Fullstack**: сквозная типизация данных благодаря связке TypeScript + Drizzle ORM.
 * **Secure Authentication**: полноценная авторизация пользователей на базе **better-auth** (сессии, регистрация, вход).
+* **CI/CD & Testing**: автоматическая проверка кодовой базы через GitHub Actions и unit-тестирование ключевой логики.
 
 ## 🛠 Стек технологий
 
 * **Frontend & Backend**: Nuxt 4 (Vue 3, Composition API)
 * **Аутентификация**: better-auth
 * **База данных & ORM**: PostgreSQL + Drizzle ORM
+* **Тестирование & CI/CD**: Vitest + GitHub Actions
 * **Стилизация**: SCSS
 * **Валидация данных**: Zod
+
+## 🧪 Тестирование
+
+В проекте настроено unit-тестирование с использованием **Vitest**. Тестами выборочно покрыты:
+* Основные утилиты (`utils`)
+* Композитные функции (`composables`)
 
 # Nuxt Minimal Starter
 
