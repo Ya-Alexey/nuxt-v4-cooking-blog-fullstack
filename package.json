@@ -11,7 +11,8 @@
     "postinstall": "nuxt prepare",
     "test": "vitest",
     "typecheck": "nuxt typecheck",
-    "db:seed": "tsx helpers/db-seed.ts && tsx server/db/seed.ts"
+    "db:seed": "tsx helpers/db-seed.ts && tsx server/db/seed.ts",
+    "generate-plop": "plop"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.11.3",
@@ -42,6 +43,7 @@
     "drizzle-kit": "^0.31.10",
     "happy-dom": "^20.11.6",
     "nuxt-svg-sprite-icon": "2.0.5",
+    "plop": "^4.0.5",
     "sass": "1.101.0",
     "transliteration": "^2.6.1",
     "vitest": "^4.1.11",
