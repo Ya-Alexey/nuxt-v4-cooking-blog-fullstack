@@ -1,4 +1,4 @@
-import { z } from 'zod/v4'
+import { z } from 'zod'
 import { RECIPE_CATEGORIES_LIST } from '~~/shared/constants';
 
 const DEFAULT_PAGE_NUM = 1;

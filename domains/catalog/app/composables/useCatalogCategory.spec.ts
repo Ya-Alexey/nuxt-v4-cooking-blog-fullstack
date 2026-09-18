@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { beforeEach, describe, expect, it } from 'vitest'
-import { useCatalogCategory } from './useCatalogCategory'
-import { NOT_FOUND_CATEGORY } from '~/utils/catalogNav'  
+import { useCatalogCategory } from '#domain_catalog/composables/useCatalogCategory'
+import { NOT_FOUND_CATEGORY } from '#domain_catalog/utils/catalogNav'  
 
 describe('useCatalogCategory composable', () => {
   let route: any

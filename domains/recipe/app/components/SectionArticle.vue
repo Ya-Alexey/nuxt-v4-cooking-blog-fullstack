@@ -63,6 +63,9 @@
 </template>
 
 <script lang="ts" setup>
+import ArticleWelcome from '#domain_recipe/components/ArticleWelcome.vue'
+import RecipeDetails from '#domain_recipe/components/RecipeDetails.vue'
+import SectionAuthor from '#domain_recipe/components/SectionAuthor.vue'
 import type { RecipeArticle } from '~~/server/schemas/recipes'
 
 const {

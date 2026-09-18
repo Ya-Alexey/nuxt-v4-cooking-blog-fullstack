@@ -1,3 +1,5 @@
+import type { CatalogRecipeCategory } from '#domain_catalog/utils/catalogNav'
+
 interface CatalogSeo {
   key: Exclude<CatalogRecipeCategory, 'not-found'>
   title: string

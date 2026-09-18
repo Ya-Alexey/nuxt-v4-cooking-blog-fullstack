@@ -1,7 +1,7 @@
 import { pgTable, serial, text, timestamp, boolean, integer } from 'drizzle-orm/pg-core'
 import { categoryEnum, prepDifficultyEnum } from './_enums'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
-import { z } from 'zod/v4'
+import type { z } from 'zod/v4'
 import type { SerializeObject } from 'nitropack'
 
 export const recipes = pgTable('recipes', {

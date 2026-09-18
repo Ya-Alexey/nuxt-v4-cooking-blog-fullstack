@@ -1,5 +1,5 @@
 import type { vOnClickOutside } from '@vueuse/components';
-import { vAutofocus } from '~/directives/vAutofocus';
+import type { vAutofocus } from '~/directives/vAutofocus';
 
 declare module '@vue/runtime-core' {
   interface GlobalDirectives {

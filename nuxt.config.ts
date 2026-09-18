@@ -1,4 +1,24 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import type { ComponentsDir } from "nuxt/schema"
+import DOMAINS from './domains.json' with { type: 'json' };
+
+/** изоляция внутренностей домена */
+const excludeDomains = (dirs: (string | ComponentsDir)[]) => {
+  const filtered = dirs.filter((d) => {
+    let pathStr: string;
+    if (typeof d === 'string') {
+      pathStr = d;
+    } else {
+      pathStr = d.path;
+    }
+    return !pathStr.replace(/\\/g, '/').includes('/domains/')
+  });
+  dirs.length = 0;
+  dirs.push(...filtered)
+}
+
+const domainLayers = DOMAINS.map((name: string) => `./domains/${name}`)
+
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
@@ -76,6 +96,9 @@ export default defineNuxtConfig({
       autoImport: false,
     }
   },
+  extends: [
+    ...domainLayers,
+  ],
   modules: [
     '@vueuse/nuxt',
     'nuxt-svg-sprite-icon',
@@ -94,14 +117,24 @@ export default defineNuxtConfig({
   typescript:{
     typeCheck: 'build',
     tsConfig: {
+      include: [
+        '../domains/**/*', // для контекста app (Vue-компоненты, страницы)
+        './domains/**/*'   // для контекста node (сам конфиг)
+      ],
       compilerOptions: {
         plugins: [
           {
             name: "@nuxt/tsconfig"
           }
-        ]
+        ],
       },
     },
+  },
+  hooks: {
+    // Изоляция всякого (utils/composable) из доменов
+    'imports:dirs': excludeDomains,
+    // Изоляция UI-компонентов
+    'components:dirs': excludeDomains,
   },
   $production: {
     routeRules: {
@@ -115,10 +148,10 @@ export default defineNuxtConfig({
           'Cache-Control': 'public, max-age=31536000, immutable' 
         } 
       },
-      '/': { swr: 3600 },
-      '/about-us': { swr: 3600 },
-      '/recipes/**': { swr: 3600 },
-      '/recipes-catalog/**': { swr: 3600 },
+      // '/': { swr: 3600 },
+      // '/about-us': { swr: 3600 },
+      // '/recipes/**': { swr: 3600 },
+      // '/recipes-catalog/**': { swr: 3600 },
     },
     nitro: {
       // Включает сжатие Brotli и Gzip для всех текстовых ресурсов и шрифтов
