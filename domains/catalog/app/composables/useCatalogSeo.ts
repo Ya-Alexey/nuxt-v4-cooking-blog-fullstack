@@ -1,3 +1,6 @@
+import { type CatalogRecipeCategory, NOT_FOUND_CATEGORY } from "#domain_catalog/utils/catalogNav";
+import { catalogSeo } from "#domain_catalog/utils/catalogSeo";
+
 export const useCatalogSeo = (
   category: Ref<CatalogRecipeCategory>
 ) => {

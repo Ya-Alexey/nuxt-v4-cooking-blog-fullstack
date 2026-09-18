@@ -1,7 +1,7 @@
 <template>
   <main 
-    class="recipes-catalog"
     v-if="pageData?.success"
+    class="recipes-catalog"
   >
     <Head v-if="catalogSeo">
       <Title>{{ catalogSeo.title }}</Title>
@@ -68,6 +68,9 @@
 
 <script lang="ts" setup>
 import { queryRecipePaginationSchema } from '~~/shared/schemas/recipes-pagination';
+import { useCatalogCategory } from '#domain_catalog/composables/useCatalogCategory';
+import { useCatalogSeo } from '#domain_catalog/composables/useCatalogSeo';
+import { NOT_FOUND_CATEGORY, catalogNav } from '#domain_catalog/utils/catalogNav';
 
 definePageMeta({
   scrollToTop(to, from) {

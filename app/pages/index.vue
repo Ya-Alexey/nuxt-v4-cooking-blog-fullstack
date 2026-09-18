@@ -7,6 +7,7 @@
         content="Добро пожаловать в кулинарный мир Изабеллы Руссо. Откройте пошаговые рецепты со всего мира и отправляйтесь в незабываемое гастрономическое путешествие!"
       />
     </Head>
+
     <BannerWelcome />
     <SectionPalette />
     
@@ -24,6 +25,7 @@
 
 <script lang="ts" setup>
 const { data: featuredRecipes } = await useFeaturedRecipesApi();
+
 </script>
 
 <style lang="scss" scoped>
