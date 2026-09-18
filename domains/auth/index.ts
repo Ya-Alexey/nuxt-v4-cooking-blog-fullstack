@@ -1,0 +1,1 @@
+export { default as AuthPopup } from '#domain_auth/components/AuthPopup.vue'

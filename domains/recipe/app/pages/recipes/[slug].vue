@@ -25,6 +25,8 @@
 </template>
 
 <script lang="ts" setup>
+import SectionArticle from '#domain_recipe/components/SectionArticle.vue'
+
 const { $api } = useNuxtApp();
 const route = useRoute();
 const routeSlug = computed(() => route.params.slug as string);

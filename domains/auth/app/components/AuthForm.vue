@@ -26,7 +26,7 @@
 
     <UserProfile 
       v-if="currentAuth.signOut"
-      :userData="userData!"
+      :user-data="userData!"
     />
 
     <BaseBtn 
@@ -47,6 +47,11 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthState } from '#domain_auth/composables/useAuthState';
+import FormSignUp from '#domain_auth/components/FormSignUp.vue';
+import FormSignIn from '#domain_auth/components/FormSignIn.vue';
+import UserProfile from '#domain_auth/components/UserProfile.vue';
+
 type AuthVariant = 'signUp' | 'signIn' | 'signOut';
 
 defineEmits<{
@@ -104,14 +109,5 @@ function changeAuthVariant(variant: AuthVariant) {
     top: 16px;
     right: 16px;
   }
-  // &__field {
-  //   display: flex;
-  //   flex-direction: column;
-  //   row-gap: 4px;
-  // }
-  // &__label {
-  //   opacity: 0.6;
-  //   padding: 0 4px;
-  // }
 }
 </style>

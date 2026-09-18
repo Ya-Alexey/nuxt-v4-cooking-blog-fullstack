@@ -7,7 +7,7 @@
     <p class="article-welcome__descr fnt-p-1">
       {{ welcomeData.welcomeDescription }}
     </p>
-    <RecipeFeature  
+    <RecipesFeature  
       class="article-welcome__list" 
       :feature-data="welcomeData"
     />
@@ -21,6 +21,7 @@
 </template>
 
 <script lang="ts" setup>
+import RecipesFeature from '#domain_recipe/components/RecipesFeature.vue';
 import type { RecipeArticle } from '~~/server/schemas/recipes'
 
 type RecipeWelcome = Pick<

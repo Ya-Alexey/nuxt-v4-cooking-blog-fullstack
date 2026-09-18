@@ -1,7 +1,20 @@
 <template>
   <form 
     @submit.prevent="onSubmit"
-  >  
+  >
+    <LabelField>
+      <template #label>Имя</template>
+      <BaseInput 
+        v-model="formFields.name"
+        v-autofocus="false"
+        :state="validFields.name ? 'default' : 'invalid'"
+        name="username" 
+        type="text"
+        placeholder="Изабелла Руссо"
+        required
+      />
+    </LabelField>
+  
     <LabelField>
       <template #label>Email</template>
       <BaseInput 
@@ -11,7 +24,6 @@
         type="email"
         placeholder="email@example.com"
         required
-        v-autofocus="true"
       />
     </LabelField>
   
@@ -31,7 +43,7 @@
       type="submit"
       theme="default"
       :disabled="isSendRequest"
-    >Войти</BaseBtn>
+    >Зарегистрироваться</BaseBtn>
   </form>
 </template>
 
@@ -39,11 +51,16 @@
 import { createAuthClient } from 'better-auth/vue';
 
 interface FormFields {
+  name: string
   email: string
   password: string
 }
 
 const validRules: InputValidRules<FormFields> = {
+  name: {
+    minLength: 2,
+    maxLength: 60,
+  },
   email: {
     patternRegExp: PATTERNT_EMAIL,
   },
@@ -56,6 +73,7 @@ const validRules: InputValidRules<FormFields> = {
 const authClient = createAuthClient();
 
 const formFields = ref({
+  name: '',
   email: '',
   password: '',
 });
@@ -72,7 +90,8 @@ async function onSubmit() {
     return;
   }
   isSendRequest.value = true;
-  await authClient.signIn.email({
+  await authClient.signUp.email({
+    name: formFields.value.name,
     email: formFields.value.email,
     password: formFields.value.password,
   }, {

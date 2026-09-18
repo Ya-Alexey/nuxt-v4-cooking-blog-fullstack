@@ -8,7 +8,7 @@
     <AppHeader 
       ref="headerEl"
       @scroll-to-subscribe="scrollToSubscribe"
-      @clickAuth="toggleAuth(true)"
+      @click-auth="toggleAuth(true)"
     />
 
     <div class="app-layout__main">
@@ -26,8 +26,8 @@
     <Teleport to="#teleports">
       <Transition 
         name="base-fade"
-        @afterLeave="onCloseAuth()"
-        @beforeEnter="onOpenAuth()"  
+        @after-leave="onCloseAuth()"
+        @before-enter="onOpenAuth()"  
       >
         <LazyAuthPopup 
           v-if="isOpenAuth"
@@ -41,6 +41,12 @@
 </template>
 
 <script lang="ts" setup>
+const LazyAuthPopup = defineAsyncComponent(async () => {
+  const { AuthPopup } = await import('#domain_auth_api');
+  // const AuthPopup = await import('~~/domains/auth/app/components/AuthPopup.vue');
+  return AuthPopup
+});
+
 const AUTH_OVERLAY_ID ='auth-overlay';
 const HEADER_OFFSET = 16;
 const headerEl = useTemplateRef('headerEl');

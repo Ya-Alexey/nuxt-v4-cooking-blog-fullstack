@@ -4,12 +4,14 @@
   >
     <AuthForm 
       ref="authEl"
-      @clickClose="onClose()"
+      @click-close="onClose()"
     />
   </BaseOverlay>
 </template>
 
 <script lang="ts" setup>
+import AuthForm from '#domain_auth/components/AuthForm.vue';
+
 const isActive = defineModel<boolean>('isActive', {
   required: true,
 });

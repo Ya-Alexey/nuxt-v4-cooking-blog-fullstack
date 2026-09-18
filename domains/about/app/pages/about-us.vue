@@ -20,5 +20,8 @@
 </template>
 
 <script lang="ts" setup>
+import AboutWelcome from '#domain_about/components/AboutWelcome.vue'
+import AboutMain from '#domain_about/components/AboutMain.vue'
+
 const { data: featuredRecipes } = await useFeaturedRecipesApi();
 </script>
